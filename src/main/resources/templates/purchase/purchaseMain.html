@@ -3,10 +3,10 @@
 <head>
     <title>Purchases</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">-->
 </head>
 <body>
-<header th:insert="blocks/headerPurchase :: header"></header>
+<header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
     <h1>Список закупок</h1>
@@ -15,7 +15,10 @@
                 <th>Внутренний номер закупки</th>
                 <th>Реестровый номер закупки</th>
                 <th>НМЦК, руб.</th>
+                <th>Тема</th>
                 <th>Статус</th>
+                <th>Цена для участия</th>
+                <th>Комментарий</th>
                 <th>Действие</th>
             </tr>
             <div th:each="element : ${purchases}">
@@ -23,7 +26,10 @@
                     <td th:text="${element.inNumber}"></td>
                     <td> <a th:href="${element.link}" th:text="${element.outNumber}"></a></td>
                     <td th:text="${element.price}"></td>
+                    <td th:text="${element.topic}"></td>
                     <td th:text="${element.status}"></td>
+                    <td th:text="${element.stopPrice}"></td>
+                    <td th:text="${element.comment}"></td>
                     <td> <a th:href="'/purchase/' + ${element.id} + '/edit'">Редактировать</a> </td>
                 </tr>
             </div>
