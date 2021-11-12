@@ -17,8 +17,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping
     public String userList(Model model) {
