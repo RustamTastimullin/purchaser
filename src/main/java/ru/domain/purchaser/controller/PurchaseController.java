@@ -53,7 +53,8 @@ public class PurchaseController {
     }
 
     @GetMapping("/purchase/{id}/edit")
-    public String purchaseEdit(@PathVariable(value = "id") Long id, Model model) {
+    public String purchaseEdit(@AuthenticationPrincipal User user,
+                               @PathVariable(value = "id") Long id, Model model) {
         if (!purchaseRepository.existsById(id)) {
             return "redirect:/purchase";
         }
@@ -61,6 +62,7 @@ public class PurchaseController {
         ArrayList<Purchase> res = new ArrayList<>();
         purchases.ifPresent(res::add);
         model.addAttribute("purchases", res);
+        model.addAttribute("user", user);
         return "purchase/purchaseEdit";
     }
 

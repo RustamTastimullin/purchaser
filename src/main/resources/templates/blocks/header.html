@@ -9,11 +9,10 @@
             <a class="me-3 py-2 text-dark text-decoration-none" href="/purchase">Список закупок</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="/purchase/add">Добавить запись</a>
             <a class="me-3 py-2 text-dark text-decoration-none" href="/about">О приложении</a>
-<!--            <a th:action="@{/logout}">Выход</a>-->
             <form class="me-3 py-2 text-dark text-decoration-none" th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out"/>
             </form>
         </nav>
     </div>
-    <h3><a th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</a></h3>
+    <h2><a th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</a></h2>
 </div>

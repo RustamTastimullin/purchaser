@@ -3,7 +3,10 @@ package ru.domain.purchaser.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    USER;
+    USER,
+    ADMIN,
+    MANAGER,
+    CHIEF;
 
     @Override
     public String getAuthority() {

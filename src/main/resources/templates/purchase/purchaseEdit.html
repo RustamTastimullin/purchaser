@@ -10,6 +10,8 @@
 
 <div class="container mt-5 mb-5">
     <h1>Редактирование закупки</h1>
+    <a>Автор: </a>
+    <a th:text="${user.username}"></a>
     <div th:each="element : ${purchases}">
         <form method="post">
             <input type="text" th:value="${element.inNumber}" name="inNumber" placeholder="Внутренний номер" class="form-control"><br>
@@ -19,7 +21,7 @@
             <input type="text" th:value="${element.topic}" name="topic" placeholder="Тема" class="form-control"><br>
             <input type="text" th:value="${element.status}" name="status" placeholder="Статус" class="form-control"><br>
             <input type="text" th:value="${element.stopPrice}" name="stopPrice" placeholder="Цена для участия" class="form-control"><br>
-            <input type="text" th:value="${element.comment}" name="comment" placeholder="Комментарий" class="form-control">
+            <input type="text" th:value="${element.comment}" name="comment" placeholder="Комментарий" class="form-control" >
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <p><button type="submit" class="btn btn-success">Сохранить</button>
         </form>

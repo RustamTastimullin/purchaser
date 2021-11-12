@@ -8,10 +8,20 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container" mt-5>
-    <h2>Welcome to purchaser</h2><br>
-    <h5>
-        Тут будет какое-то описание проекта...
-    </h5>
+    <h1>Welcome to purchaser</h1><br>
+
+    <div>
+        Эта страница доступна без авторизации.
+        Чтобы войти в приложение нажмите <a th:href="@{/login}">Войти</a>
+    </div>
+    <h4>
+        Проект Purchaser.<br>
+        Цель:<br>
+        - организовать и структурировать закупки внутри компании;<br>
+        Запрос на новые фичи:<br>
+        - добавить фильтр (https://www.youtube.com/watch?v=8MlXahJXLFg&list=PLU2ftbIeotGoGSEUf54LQH-DgiQPF2XRO&index=6);
+    </h4>
+
 </div>
 <div th:insert="blocks/footer :: footer"></div>
 </body>
