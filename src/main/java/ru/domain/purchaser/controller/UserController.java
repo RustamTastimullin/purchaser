@@ -12,9 +12,7 @@ import ru.domain.purchaser.model.Role;
 import ru.domain.purchaser.model.User;
 import ru.domain.purchaser.repository.UserRepository;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -51,15 +49,12 @@ public class UserController {
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
-
         user.getRoles().clear();
-
-        String role = form.get("role");
-
-        if (roles.contains(role)) {
-            user.getRoles().add(Role.valueOf(role));
+        for (String key : form.keySet()) {
+            if (roles.contains(key)) {
+                user.getRoles().add(Role.valueOf(key));
+            }
         }
-
         userRepository.save(user);
         return "redirect:/user";
     }

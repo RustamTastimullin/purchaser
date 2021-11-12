@@ -21,14 +21,12 @@
             </td>
             <!--                <td> <input th:type="text" th:name="${user.password}" th:value="${user.password}"/></td>-->
             <td>
-                <div th:each="roleEditor : ${roles}" th:object="${user}">
+                <div th:each="role : ${roles}">
                     <label>
                         <input type="checkbox"
-                               th:name="role"
-                               th:text="${roleEditor}"
-
-                               th:value="${roleEditor}"
-                        >
+                               th:text="${role}"
+                               th:name="${role}"
+                               th:value="${role}">
                     </label><br>
                 </div>
             </td>
