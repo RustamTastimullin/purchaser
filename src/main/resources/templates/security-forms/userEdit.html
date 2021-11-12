@@ -9,7 +9,7 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container text-center">
         <h1>User editor</h1>
-    <form class="ui form" th:action="@{/user}" method="post" th:object="${user}">
+    <form class="ui form" th:action="@{/user}" method="post">
         <table class="table table-striped table-bordered">
             <tr>
                 <th>User name</th>
@@ -20,14 +20,16 @@
                     <input type="text" name="username" th:value="${user.username}">
                 </td>
 <!--                <td> <input th:type="text" th:name="${user.password}" th:value="${user.password}"/></td>-->
-            <td th:each="roleEditor : ${roles}">
-                    <label>
+            <td>
+                <div th:each="roleEditor:${roles}" th:object="${user}">
+                    <label >
                         <input type="checkbox"
-                               th:name="${roleEditor}"
                                th:text="${roleEditor}"
                                th:field="*{roles}"
-                               th:value="${roleEditor}"><br>
-                    </label>
+                               th:value="${roleEditor}"
+                        >
+                    </label><br>
+                </div>
             </td>
         </table>
         <input type="hidden" name="userId" th:value="${user.id}">
