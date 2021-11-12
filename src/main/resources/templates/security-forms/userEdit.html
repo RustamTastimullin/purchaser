@@ -3,29 +3,29 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Editor</title>
-<!--    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />-->
+    <!--    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />-->
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container text-center">
-        <h1>User editor</h1>
+    <h1>User editor</h1>
     <form class="ui form" th:action="@{/user}" method="post">
         <table class="table table-striped table-bordered">
             <tr>
                 <th>User name</th>
-<!--                <th>User password</th>-->
+                <!--                <th>User password</th>-->
                 <th>User roles</th>
             </tr>
-                <td>
-                    <input type="text" name="username" th:value="${user.username}">
-                </td>
-<!--                <td> <input th:type="text" th:name="${user.password}" th:value="${user.password}"/></td>-->
+            <td>
+                <input type="text" name="username" th:value="${user.username}">
+            </td>
+            <!--                <td> <input th:type="text" th:name="${user.password}" th:value="${user.password}"/></td>-->
             <td>
                 <div th:each="roleEditor:${roles}" th:object="${user}">
-                    <label >
+                    <label>
                         <input type="checkbox"
                                th:text="${roleEditor}"
-                               th:field="*{roles}"
+                               th:field="${roleEditor}"
                                th:value="${roleEditor}"
                         >
                     </label><br>
