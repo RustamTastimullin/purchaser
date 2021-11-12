@@ -24,6 +24,7 @@
                 <div th:each="roleEditor:${roles}" th:object="${user}">
                     <label>
                         <input type="checkbox"
+                               th:name="role"
                                th:text="${roleEditor}"
                                th:field="${roleEditor}"
                                th:value="${roleEditor}"
