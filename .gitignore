@@ -36,3 +36,5 @@ mvnw
 mvnw.cmd
 HELP.md
 purchaser.iml
+/.mvn/
+/src/test/
