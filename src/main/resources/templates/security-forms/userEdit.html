@@ -20,14 +20,22 @@
                 <input type="text" name="username" th:value="${user.username}">
             </td>
             <!--                <td> <input th:type="text" th:name="${user.password}" th:value="${user.password}"/></td>-->
-            <td>
-                <div th:each="role : ${roles}">
-                    <label>
-                        <input type="checkbox"
-                               th:text="${role}"
-                               th:name="${role}"
-                               th:value="${role}">
-                    </label><br>
+<!--            ??????? ???????, ?? ?? ??????????? ?????? ?????!!!-->
+            <!--            <td>-->
+<!--                <th:block th:each="role : ${roles}">-->
+<!--                        <input type="checkbox"-->
+<!--                               th:text="${role}"-->
+<!--                               th:name="${role}"-->
+<!--                               th:checked="${#l}"-->
+<!--                               th:value="${role}"-->
+<!--                        ><br>-->
+<!--                </th:block>-->
+<!--            </td>-->
+<!--            ?????? ??? ????????: (https://www.pvsm.ru/java/306662)-->
+            <td th:each="role : ${roles}">
+                <div>
+                    <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(user.roles, role)}"
+                           th:utext="${role}">
                 </div>
             </td>
         </table>
