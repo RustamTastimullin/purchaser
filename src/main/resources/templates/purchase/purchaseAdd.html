@@ -10,7 +10,7 @@
 
 <div class="container mt-5 mb-5">
     <h1>Добавление новой закупки</h1>
-    <form action="/purchase/add" method="post">
+    <form action="/purchase/add" method="post" enctype="multipart/form-data">
         <input type="text" name="inNumber" placeholder="Введите внутренний номер закупки" class="form-control"><br>
         <input type="text" name="outNumber" placeholder="Введите реестровый (внешний) номер закупки" class="form-control"><br>
         <input type="text" name="link" placeholder="Введите ссылку на закупку" class="form-control"><br>
@@ -19,9 +19,13 @@
         <input type="text" name="status" placeholder="Введите статус закупки" class="form-control"><br>
         <input type="text" name="stopPrice" placeholder="Введите цену для участия" class="form-control"><br>
         <input type="text" name="comment" placeholder="Комментарий" class="form-control"><br>
+        <input type="file" name="file">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" class="btn btn-success">Добавить закупку</button>
     </form>
+    <div>
+        <img src="/img/purchase.filename" class="img-responsive"/>
+    </div>
 </div>
 <div th:insert="blocks/footer :: footer"></div>
 </body>

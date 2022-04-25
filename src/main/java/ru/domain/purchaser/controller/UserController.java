@@ -1,5 +1,6 @@
 package ru.domain.purchaser.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -28,6 +30,7 @@ public class UserController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("newLineChar", '\n');
         return "security-forms/userList";
     }
 

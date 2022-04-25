@@ -40,6 +40,8 @@ public class Purchase {
     @JoinColumn(name = "user_id")
     private User author;
 
+    private String fileName;
+
     public Purchase() {
     }
 
@@ -63,6 +65,29 @@ public class Purchase {
         this.comment = comment;
         this.author = user;
     }
+
+//    public Purchase(String inNumber,
+//                    String outNumber,
+//                    String link,
+//                    String price,
+//                    String topic,
+//                    String status,
+//                    String stopPrice,
+//                    String comment,
+//                    User user,
+//                    String fileName
+//    ) {
+//        this.inNumber = inNumber;
+//        this.outNumber = outNumber;
+//        this.link = link;
+//        this.price = price;
+//        this.topic = topic;
+//        this.status = status;
+//        this.stopPrice = stopPrice;
+//        this.comment = comment;
+//        this.author = user;
+//        this.fileName = fileName;
+//    }
 
     public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
