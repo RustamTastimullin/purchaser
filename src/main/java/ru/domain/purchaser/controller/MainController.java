@@ -11,7 +11,6 @@ import ru.domain.purchaser.model.User;
 import ru.domain.purchaser.repository.UserRepository;
 
 import java.util.Collections;
-import java.util.Map;
 
 @Controller
 public class MainController {
@@ -20,12 +19,8 @@ public class MainController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public String home(
-            @RequestParam(name = "name", required = false, defaultValue = "World!")
-                    String name,
-                    Model model) {
-        model.addAttribute("name", name);
-        return "hello";
+    public String home() {
+        return "about";
     }
 
     @GetMapping("/about")
@@ -36,7 +31,7 @@ public class MainController {
 
     @GetMapping("/registration")
     public String registrationPage() {
-        return "auth-forms/registration-form";
+        return "security-forms/registration-form";
     }
 
     @PostMapping("/registration")
@@ -44,7 +39,7 @@ public class MainController {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if(userFromDB != null) {
             msg.addAttribute("msg", "User exists!");
-            return "auth-forms/registration-form";
+            return "security-forms/registration-form";
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Users</title>
+<!--    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />-->
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container text-center">
+        <h1>List of users</h1>
+    <div>
+        <style type="text/css">
+            TABLE {
+                border-collapse: collapse; /* ??????? ??????? ????? ????? ???????? */
+            }
+            TD, TH {
+                padding: 3px; /* ???? ?????? ??????????? ??????? */
+                border: 1px solid black; /* ????????? ????? */
+            }
+            TH {
+                background: #b0e0e6; /* ???? ???? */
+            }
+        </style>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>User name</th>
+                <th>User password</th>
+                <th>User roles</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${users}">
+                <td th:text="${user.id}">User ID</td>
+                <td th:text="${user.username}">User name</td>
+                <td th:text="${user.password}">User password</td>
+                <td th:utext="${#strings.setJoin(user.roles, '&lt;br /&gt;')}"></td>
+
+                <td> <a th:href="'/user/' + ${user.id}">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

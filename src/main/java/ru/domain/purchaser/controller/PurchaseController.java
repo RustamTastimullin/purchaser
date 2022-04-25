@@ -1,6 +1,6 @@
 package ru.domain.purchaser.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,21 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ru.domain.purchaser.model.Purchase;
 import ru.domain.purchaser.model.User;
 import ru.domain.purchaser.repository.PurchaseRepository;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class PurchaseController {
 
     private final PurchaseRepository purchaseRepository;
-    @Autowired
+
     public PurchaseController(PurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;
     }
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/purchase")
     public String purchaseMain(Model model) {
@@ -37,7 +44,8 @@ public class PurchaseController {
     }
 
     @PostMapping("/purchase/add")
-    public String purchaseAdd (@AuthenticationPrincipal User user,
+    public String purchaseAdd (
+                               @AuthenticationPrincipal User user,
                                @RequestParam String inNumber,
                                @RequestParam String outNumber,
                                @RequestParam String link,
@@ -45,15 +53,29 @@ public class PurchaseController {
                                @RequestParam String topic,
                                @RequestParam String status,
                                @RequestParam String stopPrice,
-                               @RequestParam String comment
-    ) {
+                               @RequestParam String comment,
+                               @RequestParam("file") MultipartFile file
+    ) throws IOException {
         Purchase purchase = new Purchase(inNumber, outNumber, link, price, topic, status, stopPrice, comment, user);
+        if (file != null) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            purchase.setFileName(resultFilename);
+        }
+
         purchaseRepository.save(purchase);
         return "redirect:/purchase";
     }
 
     @GetMapping("/purchase/{id}/edit")
-    public String purchaseEdit(@PathVariable(value = "id") Long id, Model model) {
+    public String purchaseEdit(@AuthenticationPrincipal User user,
+                               @PathVariable(value = "id") Long id, Model model) {
         if (!purchaseRepository.existsById(id)) {
             return "redirect:/purchase";
         }
@@ -61,6 +83,7 @@ public class PurchaseController {
         ArrayList<Purchase> res = new ArrayList<>();
         purchases.ifPresent(res::add);
         model.addAttribute("purchases", res);
+        model.addAttribute("user", user);
         return "purchase/purchaseEdit";
     }
 
